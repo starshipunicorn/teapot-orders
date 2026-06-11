@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const PORT = 3000;
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || '';
-const DISCORD_THREAD_ID   = process.env.DISCORD_THREAD_ID   || '';
+const PORT                = process.env.PORT || 3000;
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || 'YOUR_WEBHOOK_URL_HERE';
+const DELIVERY_FEE        = 150;
 // ─────────────────────────────────────────────────────────────────────────────
 
 const MIME = {
@@ -18,7 +18,6 @@ const MIME = {
 };
 
 const server = http.createServer(async (req, res) => {
-  // CORS headers (only needed if you host frontend separately)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -39,7 +38,10 @@ const server = http.createServer(async (req, res) => {
         respond(res, 400, { error: 'Missing required fields' }); return;
       }
 
-      const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+      const isDelivery = orderType === 'Delivery';
+      const subtotal   = items.reduce((s, i) => s + i.price * i.qty, 0);
+      const total      = isDelivery ? subtotal + DELIVERY_FEE : subtotal;
+
       const orderLines = items.map(i =>
         i.qty > 1
           ? `**${i.name}** ×${i.qty} — $${(i.price * i.qty).toLocaleString()}`
@@ -52,6 +54,10 @@ const server = http.createServer(async (req, res) => {
         month: 'short', day: 'numeric'
       });
 
+      const totalLine = isDelivery
+        ? `**$${total.toLocaleString()} GTA$** (incl. $${DELIVERY_FEE} delivery fee)`
+        : `**$${total.toLocaleString()} GTA$**`;
+
       const embed = {
         title: '🫖 New Order — The Little Teapot',
         color: 0x5C3D2E,
@@ -60,25 +66,24 @@ const server = http.createServer(async (req, res) => {
           { name: '📦 Order Type', value: orderType,    inline: true },
           ...(address ? [{ name: '📍 Address', value: address, inline: false }] : []),
           { name: '🛒 Items',      value: orderLines,   inline: false },
-          { name: '💰 Total',      value: `**$${total.toLocaleString()} GTA$**`, inline: true },
+          { name: '💰 Total',      value: totalLine,    inline: false },
           ...(notes ? [{ name: '📝 Notes', value: notes, inline: false }] : []),
         ],
         footer: { text: `Placed at ${timestamp}` },
       };
 
       let webhookUrl = DISCORD_WEBHOOK_URL;
-      if (DISCORD_THREAD_ID) webhookUrl += `?thread_id=${DISCORD_THREAD_ID}`;
 
       try {
         const dcRes = await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ embeds: [embed] }),
+          body: JSON.stringify({ content: '@here New order received!', embeds: [embed] }),
         });
 
         if (dcRes.ok || dcRes.status === 204) {
           console.log(`[${timestamp}] Order from ${customerName} — $${total.toLocaleString()} GTA$`);
-          respond(res, 200, { success: true, total });
+          respond(res, 200, { success: true, total, isDelivery, deliveryFee: DELIVERY_FEE });
         } else {
           const err = await dcRes.text();
           console.error('Discord error:', dcRes.status, err);
@@ -111,5 +116,5 @@ function respond(res, status, data) {
 
 server.listen(PORT, () => {
   console.log(`🫖 The Little Teapot server running at http://localhost:${PORT}`);
-  console.log(`   Webhook configured: ${DISCORD_WEBHOOK_URL !== 'YOUR_WEBHOOK_URL_HERE' ? '✓' : '✗ (set DISCORD_WEBHOOK_URL in server.js)'}`);
+  console.log(`   Webhook: ${DISCORD_WEBHOOK_URL !== 'YOUR_WEBHOOK_URL_HERE' ? '✓ configured' : '✗ missing — set DISCORD_WEBHOOK_URL'}`);
 });
