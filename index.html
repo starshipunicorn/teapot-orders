@@ -166,7 +166,7 @@
               <span class="total-price" id="total-price">$0</span>
             </div>
           </div>
-          <p class="currency-note">Prices in GTA$ (in-game currency)</p>
+          <p class="currency-note">Prices in $</p>
 
           <div class="order-form">
             <div class="form-field">
@@ -177,9 +177,9 @@
               <label>Pickup or delivery?</label>
               <select id="order-type" onchange="onOrderTypeChange()">
                 <option value="Pickup">Pickup at the café</option>
-                <option value="Delivery">Delivery (+$150 GTA$)</option>
+                <option value="Delivery">Delivery (+$150)</option>
               </select>
-              <div class="delivery-fee-note" id="delivery-note">A $150 GTA$ delivery fee will be added to your total.</div>
+              <div class="delivery-fee-note" id="delivery-note">A $150 delivery fee will be added to your total.</div>
             </div>
             <div class="form-field" id="address-field">
               <label>Delivery address / location</label>
@@ -426,7 +426,7 @@ function showConfirmation({ customerName, orderType, address, notes, items, tota
   }).join('');
 
   document.getElementById('conf-delivery-fee-row').style.display = isDelivery ? 'flex' : 'none';
-  document.getElementById('conf-total').textContent = `$${total.toLocaleString()} GTA$`;
+  document.getElementById('conf-total').textContent = `$${total.toLocaleString()} $`;
 
   // Swap screens
   document.getElementById('order-screen').classList.add('hidden');
