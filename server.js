@@ -72,13 +72,15 @@ const server = http.createServer(async (req, res) => {
         footer: { text: `Placed at ${timestamp}` },
       };
 
-      let webhookUrl = DISCORD_WEBHOOK_URL;
-
       try {
-        const dcRes = await fetch(webhookUrl, {
+        const dcRes = await fetch(DISCORD_WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: '@here New order received!', embeds: [embed] }),
+          body: JSON.stringify({
+            content: '@here New order received!',
+            embeds: [embed],
+            allowed_mentions: { parse: ['everyone'] },
+          }),
         });
 
         if (dcRes.ok || dcRes.status === 204) {
@@ -87,7 +89,7 @@ const server = http.createServer(async (req, res) => {
         } else {
           const err = await dcRes.text();
           console.error('Discord error:', dcRes.status, err);
-          respond(res, 502, { error: `Discord rejected the request (${dcRes.status})` });
+          respond(res, 502, { error: `Discord error (${dcRes.status}): ${err}` });
         }
       } catch (err) {
         console.error('Fetch error:', err.message);
