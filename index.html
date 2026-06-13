@@ -129,7 +129,8 @@
     color: var(--green); line-height: 1; transition: background 0.1s;
   }
   .qty-btn:hover { background: rgba(20,83,45,0.2); }
-  .qty-display { font-size: 13px; font-weight: 600; min-width: 16px; text-align: center; color: var(--green); }
+  .qty-input { font-size: 13px; font-weight: 600; width: 36px; text-align: center; color: var(--green); border: 1.5px solid var(--green-border); border-radius: 5px; background: #fde68a; padding: 1px 2px; font-family: 'DM Sans', sans-serif; outline: none; }
+  .qty-input:focus { border-color: var(--green); background: #fef9c3; }
 
   /* CART */
   .cart-col { position: sticky; top: 1.5rem; }
@@ -261,12 +262,11 @@
             <div class="cart-delivery-fee" id="delivery-fee-row" style="display:none"><span>Delivery fee</span><span>$150</span></div>
             <div class="cart-total"><span>Total</span><span class="total-price" id="total-price">$0</span></div>
           </div>
-          <p class="currency-note">If you're getting preservatives please select the amount you need.</p>
 
           <div class="order-form">
             <div class="form-field">
               <label>Character name</label>
-              <input type="text" id="customer-name" placeholder="e.g. Fiorenza Moretti" />
+              <input type="text" id="customer-name" placeholder="e.g. Violet Moreau" />
             </div>
             <div class="form-field">
               <label>Pickup or delivery?</label>
@@ -366,7 +366,7 @@ function buildMenu() {
         </div>
         <div class="item-qty-controls">
           <button class="qty-btn" data-key="${key}" data-delta="-1">−</button>
-          <span class="qty-display" id="qty-${CSS.escape(key)}">1</span>
+          <input class="qty-input" id="qty-${CSS.escape(key)}" type="number" value="1" min="1" />
           <button class="qty-btn" data-key="${key}" data-delta="1">+</button>
         </div>`;
       el.addEventListener('click', () => toggleItem(key, name, price));
@@ -393,7 +393,7 @@ function toggleItem(key, name, price) {
     cart[key] = { name, price, qty: 1 };
     document.getElementById(`item-${CSS.escape(key)}`)?.classList.add('selected');
     const qEl = document.getElementById(`qty-${CSS.escape(key)}`);
-    if (qEl) qEl.textContent = '1';
+    if (qEl) { qEl.value = '1'; qEl.addEventListener('change', () => setQtyFromInput('${key}', qEl)); qEl.addEventListener('click', e => e.stopPropagation()); }
   }
   renderCart();
 }
@@ -402,7 +402,18 @@ function changeQty(key, delta) {
   if (!cart[key]) return;
   cart[key].qty = Math.max(1, cart[key].qty + delta);
   const qEl = document.getElementById(`qty-${CSS.escape(key)}`);
-  if (qEl) qEl.textContent = cart[key].qty;
+  if (qEl) qEl.value = cart[key].qty;
+  renderCart();
+}
+
+function setQtyFromInput(key, inputEl) {
+  if (!cart[key]) return;
+  const val = parseInt(inputEl.value);
+  if (!isNaN(val) && val >= 1) {
+    cart[key].qty = val;
+  } else {
+    inputEl.value = cart[key].qty;
+  }
   renderCart();
 }
 
@@ -497,7 +508,7 @@ function showConfirmation({ customerName, orderType, address, notes, items, tota
   }).join('');
 
   document.getElementById('conf-delivery-fee-row').style.display = isDelivery ? 'flex' : 'none';
-  document.getElementById('conf-total').textContent = `$${total.toLocaleString()} GTA$`;
+  document.getElementById('conf-total').textContent = `$${total.toLocaleString()}`;
 
   document.getElementById('order-screen').classList.add('hidden');
   document.getElementById('confirmation-screen').classList.add('visible');
