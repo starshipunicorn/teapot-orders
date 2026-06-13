@@ -373,6 +373,12 @@ function buildMenu() {
       el.querySelectorAll('.qty-btn').forEach(btn => {
         btn.addEventListener('click', e => { e.stopPropagation(); changeQty(btn.dataset.key, parseInt(btn.dataset.delta)); });
       });
+      const qtyInput = el.querySelector('.qty-input');
+      if (qtyInput) {
+        qtyInput.addEventListener('click', e => e.stopPropagation());
+        qtyInput.addEventListener('change', () => setQtyFromInput(key, qtyInput));
+        qtyInput.addEventListener('input', () => setQtyFromInput(key, qtyInput));
+      }
       grid.appendChild(el);
     }
   }
@@ -393,7 +399,7 @@ function toggleItem(key, name, price) {
     cart[key] = { name, price, qty: 1 };
     document.getElementById(`item-${CSS.escape(key)}`)?.classList.add('selected');
     const qEl = document.getElementById(`qty-${CSS.escape(key)}`);
-    if (qEl) { qEl.value = '1'; qEl.addEventListener('change', () => setQtyFromInput('${key}', qEl)); qEl.addEventListener('click', e => e.stopPropagation()); }
+    if (qEl) qEl.value = 1;
   }
   renderCart();
 }
