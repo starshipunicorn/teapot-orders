@@ -1,12 +1,8 @@
 {
-  "name": "teapot-orders",
+  "name": "pizzathis-orders",
   "version": "1.0.0",
-  "description": "The Little Teapot — GTA5 RP online ordering with Discord webhook",
+  "description": "Pizza This — GTA5 RP online ordering with Discord webhook",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  }
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18.0.0" }
 }
