@@ -10,8 +10,7 @@
   :root {
     --red: #C8321A; --red-dark: #9E2210;
     --green: #1B5E35; --green-dark: #0f3d21;
-    --cream: #F5F0E1; --cream-dark: #EDE5CE;
-    --warm-white: #FDFAF3;
+    --cream: #F5F0E1; --warm-white: #FDFAF3;
     --border: rgba(200,50,26,0.2);
     --card-shadow: 0 4px 20px rgba(0,0,0,0.1);
   }
@@ -20,76 +19,124 @@
   .checker { height: 18px; background-image: repeating-linear-gradient(90deg, var(--red) 0px, var(--red) 18px, var(--cream) 18px, var(--cream) 36px); }
   .checker.green { background-image: repeating-linear-gradient(90deg, var(--green) 0px, var(--green) 18px, var(--cream) 18px, var(--cream) 36px); }
 
-  .hero { background-color: var(--cream); text-align: center; padding: 2.5rem 2rem 2rem; }
-  .hero-logo { font-family: 'Pacifico', cursive; font-size: clamp(3rem, 10vw, 6.5rem); color: var(--red); line-height: 1; text-shadow: 3px 3px 0 rgba(200,50,26,0.15); display: block; }
-  .hero-wordmark { font-family: 'Oswald', sans-serif; font-size: clamp(1.5rem, 4vw, 2.8rem); font-weight: 700; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-top: -0.25rem; }
-  .hero-tagline { font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-top: 0.5rem; opacity: 0.8; }
+  .hero { background-color: var(--cream); text-align: center; padding: 2rem 2rem 1.75rem; }
+  .hero-logo { font-family: 'Pacifico', cursive; font-size: clamp(2.5rem, 9vw, 6rem); color: var(--red); line-height: 1; text-shadow: 3px 3px 0 rgba(200,50,26,0.15); display: block; }
+  .hero-wordmark { font-family: 'Oswald', sans-serif; font-size: clamp(1.3rem, 4vw, 2.8rem); font-weight: 700; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-top: -0.2rem; }
+  .hero-tagline { font-family: 'Oswald', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-top: 0.4rem; opacity: 0.8; }
 
-  .layout { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 4rem; display: grid; grid-template-columns: 1fr 350px; gap: 2rem; align-items: start; }
-  @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } .cart-col { position: static; order: -1; } }
+  /* ── DESKTOP LAYOUT ── */
+  .layout { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 4rem; display: grid; grid-template-columns: 1fr 340px; gap: 2rem; align-items: start; }
 
-  .category-section { margin-bottom: 2.25rem; }
-  .category-title { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid var(--red); padding-bottom: 0.4rem; margin-bottom: 0.25rem; display: flex; align-items: baseline; gap: 0.6rem; }
-  .category-price { font-size: 13px; font-weight: 400; color: var(--red); letter-spacing: 0.05em; }
-  .category-note { font-size: 12px; font-style: italic; color: var(--green); opacity: 0.65; display: block; margin-top: 3px; margin-bottom: 0.6rem; }
-  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.65rem; margin-top: 0.75rem; }
+  /* ── MOBILE: single column, cart goes to bottom ── */
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; padding: 1.25rem 1rem 200px; gap: 1.25rem; }
+    .cart-col { display: none; } /* hide sidebar cart on mobile */
+  }
 
-  .menu-item { background: var(--warm-white); border: 1.5px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; cursor: pointer; transition: border-color 0.15s, background 0.15s, transform 0.1s; user-select: none; }
+  /* CATEGORY */
+  .category-section { margin-bottom: 2rem; }
+  .category-title { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid var(--red); padding-bottom: 0.35rem; margin-bottom: 0.65rem; display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .category-price { font-size: 13px; font-weight: 400; color: var(--red); letter-spacing: 0.04em; }
+  .category-note { font-size: 11px; font-style: italic; color: var(--green); opacity: 0.65; display: block; margin-top: -0.4rem; margin-bottom: 0.6rem; }
+  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.55rem; }
+  @media (max-width: 768px) { .items-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; } }
+  @media (max-width: 420px) { .items-grid { grid-template-columns: 1fr; } }
+
+  /* ITEMS */
+  .menu-item { background: var(--warm-white); border: 1.5px solid var(--border); border-radius: 8px; padding: 0.75rem 0.85rem; cursor: pointer; transition: border-color 0.15s, background 0.15s, transform 0.1s; user-select: none; }
   .menu-item:hover { border-color: var(--red); background: #fff; transform: translateY(-1px); box-shadow: var(--card-shadow); }
   .menu-item.selected { border-color: var(--red); border-width: 2px; background: #fff8f6; }
-  .item-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
-  .item-name { font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 500; line-height: 1.3; flex: 1; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.04em; }
-  .item-price { font-family: 'Oswald', sans-serif; font-size: 14px; color: var(--red); font-weight: 600; white-space: nowrap; }
-  .item-ingredients { font-size: 11px; color: #777; margin-top: 5px; line-height: 1.4; font-style: italic; }
-  .item-qty-controls { display: none; align-items: center; gap: 6px; margin-top: 9px; }
+  .item-top { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
+  .item-name { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 500; line-height: 1.3; flex: 1; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.04em; }
+  .item-price { font-family: 'Oswald', sans-serif; font-size: 13px; color: var(--red); font-weight: 600; white-space: nowrap; }
+  .item-qty-controls { display: none; align-items: center; gap: 6px; margin-top: 8px; }
   .menu-item.selected .item-qty-controls { display: flex; }
-  .qty-btn { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--red); background: var(--cream); cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; color: var(--red); font-weight: 700; line-height: 1; transition: background 0.1s, color 0.1s; }
+  .qty-btn { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--red); background: var(--cream); cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; color: var(--red); font-weight: 700; line-height: 1; transition: background 0.1s, color 0.1s; flex-shrink: 0; }
   .qty-btn:hover { background: var(--red); color: white; }
   .qty-input { font-size: 14px; font-weight: 700; width: 38px; text-align: center; color: var(--green-dark); border: 1.5px solid var(--border); border-radius: 5px; background: #fff3c4; padding: 1px 2px; font-family: 'Oswald', sans-serif; outline: none; }
   .qty-input:focus { border-color: var(--red); }
 
+  /* ── DESKTOP CART SIDEBAR ── */
   .cart-col { position: sticky; top: 1.5rem; }
   .cart-card { background: var(--warm-white); border: 2px solid var(--red); border-radius: 10px; overflow: hidden; box-shadow: var(--card-shadow); }
-  .cart-header { background: var(--red); color: var(--cream); padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
-  .cart-header h2 { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-  .cart-badge { background: var(--cream); color: var(--red); font-size: 11px; font-weight: 700; border-radius: 20px; padding: 2px 9px; font-family: 'Oswald', sans-serif; letter-spacing: 0.05em; }
-  .cart-body { padding: 1rem 1.25rem; }
-  .cart-empty { text-align: center; padding: 1.75rem 0; color: #aaa; font-size: 13px; font-style: italic; }
-  .cart-line { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; gap: 0.5rem; border-bottom: 1px dashed var(--border); }
+  .cart-header { background: var(--red); color: var(--cream); padding: 0.9rem 1.15rem; display: flex; justify-content: space-between; align-items: center; }
+  .cart-header h2 { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+  .cart-badge { background: var(--cream); color: var(--red); font-size: 11px; font-weight: 700; border-radius: 20px; padding: 2px 9px; font-family: 'Oswald', sans-serif; }
+  .cart-body { padding: 1rem 1.15rem; }
+  .cart-empty { text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 13px; font-style: italic; }
+  .cart-line { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; gap: 0.5rem; border-bottom: 1px dashed var(--border); }
   .cart-line:last-child { border-bottom: none; }
   .cart-line-name { flex: 1; line-height: 1.4; color: var(--green-dark); }
   .cart-line-price { color: var(--red); font-weight: 600; white-space: nowrap; }
   .cart-subtotal { display: flex; justify-content: space-between; font-size: 13px; padding-top: 0.5rem; color: #777; }
   .cart-delivery-fee { display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0; color: #777; }
-  .cart-total { border-top: 2px solid var(--red); margin-top: 0.5rem; padding-top: 0.65rem; display: flex; justify-content: space-between; font-weight: 700; }
-  .total-price { font-family: 'Oswald', sans-serif; font-size: 1.3rem; color: var(--red); }
+  .cart-total { border-top: 2px solid var(--red); margin-top: 0.5rem; padding-top: 0.6rem; display: flex; justify-content: space-between; font-weight: 700; }
+  .total-price { font-family: 'Oswald', sans-serif; font-size: 1.2rem; color: var(--red); }
 
+  /* FORM (shared) */
   .order-form { margin-top: 1rem; border-top: 1px dashed var(--border); padding-top: 1rem; }
-  .form-field { margin-bottom: 0.75rem; }
-  .form-field label { display: block; font-family: 'Oswald', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); margin-bottom: 4px; font-weight: 600; }
+  .form-field { margin-bottom: 0.7rem; }
+  .form-field label { display: block; font-family: 'Oswald', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); margin-bottom: 3px; font-weight: 600; }
   .form-field input, .form-field textarea, .form-field select { width: 100%; padding: 0.55rem 0.75rem; border: 1.5px solid var(--border); border-radius: 6px; background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--green-dark); outline: none; transition: border-color 0.15s; }
   .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: var(--red); background: var(--warm-white); }
-  .form-field textarea { resize: vertical; min-height: 60px; }
-  .delivery-fee-note { font-size: 11px; font-style: italic; color: var(--red); background: #fff3f1; border: 1px solid rgba(200,50,26,0.2); border-radius: 6px; padding: 6px 10px; margin-top: 4px; display: none; }
+  .form-field textarea { resize: vertical; min-height: 56px; }
+  .delivery-fee-note { font-size: 11px; font-style: italic; color: var(--red); background: #fff3f1; border: 1px solid rgba(200,50,26,0.2); border-radius: 6px; padding: 5px 9px; margin-top: 4px; display: none; }
   .delivery-fee-note.visible { display: block; }
-  .submit-btn { width: 100%; padding: 0.9rem; background: var(--green); color: var(--cream); border: none; border-radius: 8px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.15s, transform 0.1s; margin-top: 0.5rem; }
+  .submit-btn { width: 100%; padding: 0.85rem; background: var(--green); color: var(--cream); border: none; border-radius: 8px; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.15s, transform 0.1s; margin-top: 0.5rem; }
   .submit-btn:hover { background: var(--green-dark); }
   .submit-btn:active { transform: scale(0.98); }
   .submit-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
   .status-msg { margin-top: 0.75rem; padding: 0.65rem 0.85rem; border-radius: 6px; font-size: 13px; display: none; }
   .status-msg.error { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; display: block; }
 
+  /* ── MOBILE BOTTOM CART BAR ── */
+  .mobile-cart-bar {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--warm-white);
+    border-top: 2px solid var(--red);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    z-index: 100;
+  }
+  @media (max-width: 768px) { .mobile-cart-bar { display: block; } }
+
+  .mobile-cart-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    background: var(--red);
+    color: var(--cream);
+  }
+  .mobile-cart-summary-left { display: flex; align-items: center; gap: 0.6rem; }
+  .mobile-cart-icon { font-size: 1.1rem; }
+  .mobile-cart-label { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .mobile-cart-count { font-size: 12px; opacity: 0.85; margin-top: 1px; }
+  .mobile-cart-total-pill { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; background: var(--cream); color: var(--red); border-radius: 20px; padding: 3px 12px; }
+  .mobile-cart-chevron { font-size: 0.75rem; opacity: 0.7; margin-left: 6px; transition: transform 0.2s; }
+  .mobile-cart-bar.open .mobile-cart-chevron { transform: rotate(180deg); }
+
+  /* Expandable cart panel */
+  .mobile-cart-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .mobile-cart-bar.open .mobile-cart-panel { max-height: 80vh; overflow-y: auto; }
+  .mobile-cart-panel-inner { padding: 1rem; border-top: 1px dashed var(--border); }
+  .mobile-cart-lines { margin-bottom: 0.5rem; }
+  .mobile-empty { text-align: center; padding: 1rem 0; color: #aaa; font-size: 13px; font-style: italic; }
+
+  /* CONFIRMATION */
   #confirmation-screen { display: none; }
   #confirmation-screen.visible { display: block; }
   #order-screen.hidden { display: none; }
-  .confirm-wrap { max-width: 560px; margin: 3rem auto; padding: 0 1.5rem 4rem; text-align: center; }
-  .confirm-icon { font-size: 3.5rem; margin-bottom: 0.75rem; }
-  .confirm-title { font-family: 'Pacifico', cursive; font-size: 2.5rem; color: var(--red); margin-bottom: 0.5rem; }
-  .confirm-sub { font-size: 14px; color: var(--green); margin-bottom: 2rem; line-height: 1.7; font-style: italic; }
+  .confirm-wrap { max-width: 560px; margin: 2.5rem auto; padding: 0 1.25rem 3rem; text-align: center; }
+  .confirm-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+  .confirm-title { font-family: 'Pacifico', cursive; font-size: 2.2rem; color: var(--red); margin-bottom: 0.5rem; }
+  .confirm-sub { font-size: 14px; color: var(--green); margin-bottom: 1.75rem; line-height: 1.7; font-style: italic; }
   .confirm-card { background: var(--warm-white); border: 2px solid var(--red); border-radius: 10px; overflow: hidden; box-shadow: var(--card-shadow); text-align: left; margin-bottom: 1.25rem; }
-  .confirm-card-header { background: var(--red); color: var(--cream); padding: 0.75rem 1.25rem; }
-  .confirm-card-header h3 { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-  .confirm-card-body { padding: 0.9rem 1.25rem; }
+  .confirm-card-header { background: var(--red); color: var(--cream); padding: 0.7rem 1.15rem; }
+  .confirm-card-header h3 { font-family: 'Oswald', sans-serif; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+  .confirm-card-body { padding: 0.85rem 1.15rem; }
   .confirm-row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; border-bottom: 1px dashed var(--border); gap: 1rem; }
   .confirm-row:last-child { border-bottom: none; }
   .confirm-row-label { color: #999; }
@@ -100,7 +147,7 @@
   .confirm-item-name { flex: 1; color: var(--green-dark); }
   .confirm-item-price { color: var(--red); font-weight: 600; white-space: nowrap; }
   .confirm-total-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; padding-top: 0.5rem; }
-  .confirm-total-price { font-family: 'Oswald', sans-serif; font-size: 1.3rem; color: var(--red); }
+  .confirm-total-price { font-family: 'Oswald', sans-serif; font-size: 1.2rem; color: var(--red); }
   .new-order-btn { display: inline-block; margin-top: 0.5rem; padding: 0.85rem 2.5rem; background: var(--green); color: var(--cream); border: none; border-radius: 8px; font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.15s; }
   .new-order-btn:hover { background: var(--green-dark); }
 </style>
@@ -119,56 +166,112 @@
 <div class="checker" style="margin-bottom:3px"></div>
 <div class="checker green"></div>
 
+<!-- ORDER SCREEN -->
 <div id="order-screen">
   <div class="layout">
+
+    <!-- MENU -->
     <div id="menu-col"></div>
+
+    <!-- DESKTOP CART SIDEBAR -->
     <div class="cart-col">
       <div class="cart-card">
         <div class="cart-header">
           <h2>Your Order</h2>
-          <span class="cart-badge" id="cart-count">0 items</span>
+          <span class="cart-badge" id="cart-count-desktop">0 items</span>
         </div>
         <div class="cart-body">
-          <div class="cart-empty" id="cart-empty">Your order is empty.<br>Tap an item to add it.</div>
-          <div id="cart-lines"></div>
-          <div id="cart-totals" style="display:none">
-            <div class="cart-subtotal"><span>Subtotal</span><span id="subtotal-price">$0</span></div>
-            <div class="cart-delivery-fee" id="delivery-fee-row" style="display:none"><span>Delivery fee</span><span>$150</span></div>
-            <div class="cart-total"><span>Total</span><span class="total-price" id="total-price">$0</span></div>
+          <div class="cart-empty" id="cart-empty-desktop">Your order is empty.<br>Tap an item to add it.</div>
+          <div id="cart-lines-desktop"></div>
+          <div id="cart-totals-desktop" style="display:none">
+            <div class="cart-subtotal"><span>Subtotal</span><span id="subtotal-price-desktop">$0</span></div>
+            <div class="cart-delivery-fee" id="delivery-fee-row-desktop" style="display:none"><span>Delivery fee</span><span>$150</span></div>
+            <div class="cart-total"><span>Total</span><span class="total-price" id="total-price-desktop">$0</span></div>
           </div>
-          <div class="order-form">
+          <div class="order-form" id="order-form-desktop">
             <div class="form-field">
               <label>Character name</label>
-              <input type="text" id="customer-name" placeholder="e.g. Tony Soprano" />
+              <input type="text" id="customer-name-desktop" placeholder="e.g. Tony Soprano" />
             </div>
             <div class="form-field">
               <label>Pickup or delivery?</label>
-              <select id="order-type" onchange="onOrderTypeChange()">
+              <select id="order-type-desktop" onchange="onOrderTypeChange()">
                 <option value="Pickup">Pickup</option>
                 <option value="Delivery">Delivery (+$150)</option>
               </select>
-              <div class="delivery-fee-note" id="delivery-note">A $150 delivery fee will be added to your total.</div>
+              <div class="delivery-fee-note" id="delivery-note-desktop">A $150 delivery fee will be added to your total.</div>
             </div>
-            <div class="form-field" id="address-field" style="display:none">
-              <label>Delivery address / location</label>
-              <input type="text" id="delivery-address" placeholder="e.g. Rockford Hills, Maze Bank Tower" />
+            <div class="form-field" id="address-field-desktop" style="display:none">
+              <label>Delivery address</label>
+              <input type="text" id="delivery-address-desktop" placeholder="e.g. Rockford Hills" />
             </div>
             <div class="form-field">
               <label>Special requests (optional)</label>
-              <textarea id="special-requests" placeholder="Customisations, allergies, notes…"></textarea>
+              <textarea id="special-requests-desktop" placeholder="Customisations, allergies, notes…"></textarea>
             </div>
-            <button class="submit-btn" id="submit-btn" onclick="submitOrder()">Place Order</button>
-            <div class="status-msg" id="status-msg"></div>
+            <button class="submit-btn" id="submit-btn-desktop" onclick="submitOrder('desktop')">Place Order</button>
+            <div class="status-msg" id="status-msg-desktop"></div>
           </div>
         </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM CART BAR -->
+<div class="mobile-cart-bar" id="mobile-cart-bar">
+  <div class="mobile-cart-summary" onclick="toggleMobileCart()">
+    <div class="mobile-cart-summary-left">
+      <span class="mobile-cart-icon">🛒</span>
+      <div>
+        <div class="mobile-cart-label">Your Order <span class="mobile-cart-chevron" id="mobile-chevron">▲</span></div>
+        <div class="mobile-cart-count" id="mobile-cart-count">0 items</div>
+      </div>
+    </div>
+    <span class="mobile-cart-total-pill" id="mobile-cart-total">$0</span>
+  </div>
+  <div class="mobile-cart-panel" id="mobile-cart-panel">
+    <div class="mobile-cart-panel-inner">
+      <div class="mobile-empty" id="cart-empty-mobile">Your order is empty. Tap an item to add it.</div>
+      <div class="mobile-cart-lines" id="cart-lines-mobile"></div>
+      <div id="cart-totals-mobile" style="display:none">
+        <div class="cart-subtotal"><span>Subtotal</span><span id="subtotal-price-mobile">$0</span></div>
+        <div class="cart-delivery-fee" id="delivery-fee-row-mobile" style="display:none"><span>Delivery fee</span><span>$150</span></div>
+        <div class="cart-total"><span>Total</span><span class="total-price" id="total-price-mobile">$0</span></div>
+      </div>
+      <div class="order-form">
+        <div class="form-field">
+          <label>Character name</label>
+          <input type="text" id="customer-name-mobile" placeholder="e.g. Tony Soprano" />
+        </div>
+        <div class="form-field">
+          <label>Pickup or delivery?</label>
+          <select id="order-type-mobile" onchange="onOrderTypeChange()">
+            <option value="Pickup">Pickup</option>
+            <option value="Delivery">Delivery (+$150)</option>
+          </select>
+          <div class="delivery-fee-note" id="delivery-note-mobile">A $150 delivery fee will be added.</div>
+        </div>
+        <div class="form-field" id="address-field-mobile" style="display:none">
+          <label>Delivery address</label>
+          <input type="text" id="delivery-address-mobile" placeholder="e.g. Rockford Hills" />
+        </div>
+        <div class="form-field">
+          <label>Special requests (optional)</label>
+          <textarea id="special-requests-mobile" placeholder="Customisations, allergies, notes…"></textarea>
+        </div>
+        <button class="submit-btn" id="submit-btn-mobile" onclick="submitOrder('mobile')">Place Order</button>
+        <div class="status-msg" id="status-msg-mobile"></div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- CONFIRMATION SCREEN -->
 <div id="confirmation-screen">
   <div class="checker" style="margin-bottom:3px"></div>
-  <div class="checker green" style="margin-bottom:2rem"></div>
+  <div class="checker green" style="margin-bottom:1.5rem"></div>
   <div class="confirm-wrap">
     <div class="confirm-icon">🍕</div>
     <h2 class="confirm-title">Order placed!</h2>
@@ -204,45 +307,55 @@
 <script>
 const DELIVERY_FEE = 150;
 const MENU = {
-  "Special": { price: "$250", note: null, items: { "S'mores Shake": { price: 250, ingredients: "special, chocolate, s'mores, cream, milk" } } },
+  "Special": { price: "$250", note: null, items: {
+    "S'mores Shake": { price: 250 },
+  }},
   "Pizza": { price: "$120 per slice", note: "create-your-own box available — ask in special requests", items: {
-    "Margherita Slice": { price: 120, ingredients: "crust, tomato, cheese, herbs & spices" },
-    "Pepperoni Slice":  { price: 120, ingredients: "crust, tomato, cheese, pepperoni" },
+    "Margherita Slice": { price: 120 },
+    "Pepperoni Slice":  { price: 120 },
   }},
   "Mains": { price: "$120 each", note: null, items: {
-    "Tiff's Vodka Pasta":     { price: 120, ingredients: "pasta, tomato, vodka, herbs & spices" },
-    "Memaw's Veggie Lasagna": { price: 120, ingredients: "pasta, cheese, tomato, spinach" },
-    "Muffuletta Sandwich":    { price: 120, ingredients: "bun, olive, pepperoni, cheese, herbs & spices" },
-    "Guac Burger & Fries":    { price: 120, ingredients: "bun, steak, avocado, cheese, sliced potato" },
-    "Chicken & Waffles":      { price: 120, ingredients: "flour, egg, chicken, sightings seasoning" },
+    "Tiff's Vodka Pasta":     { price: 120 },
+    "Memaw's Veggie Lasagna": { price: 120 },
+    "Muffuletta Sandwich":    { price: 120 },
+    "Guac Burger & Fries":    { price: 120 },
+    "Chicken & Waffles":      { price: 120 },
   }},
   "Appetizers": { price: "$100 each", note: null, items: {
-    "House Salad":         { price: 100, ingredients: "lettuce, tomato, cheese, croutons" },
-    "Soup of the Day":     { price: 100, ingredients: "water, pasta, herbs & spices, spinach" },
-    "Cheese Garlic Bread": { price: 100, ingredients: "cheese, bun, herbs & spices" },
-    "Toasted Ravioli":     { price: 100, ingredients: "pasta, steak, herbs & spices" },
-    "Onion Rings":         { price: 100, ingredients: "sliced onion, flour, sightings seasoning" },
+    "House Salad":         { price: 100 },
+    "Soup of the Day":     { price: 100 },
+    "Cheese Garlic Bread": { price: 100 },
+    "Toasted Ravioli":     { price: 100 },
+    "Onion Rings":         { price: 100 },
   }},
   "Dessert": { price: "$100 each", note: null, items: {
-    "Caramel Affogato Ice Cream": { price: 100, ingredients: "ice, cream, caramel, coffee" },
-    "Chocolate Biscotti":         { price: 100, ingredients: "flour, egg, sugar, chocolate" },
-    "Tiramisu Cheesecake":        { price: 100, ingredients: "flour, egg, sugar, cheese, coffee" },
-    "Pie in the Sky":             { price: 100, ingredients: "flour, egg, cream, sugar, cherry" },
-    "Cinnamon Dolce Zeppole":     { price: 100, ingredients: "flour, egg, cheese, sugar, cinnamon" },
+    "Caramel Affogato Ice Cream": { price: 100 },
+    "Chocolate Biscotti":         { price: 100 },
+    "Tiramisu Cheesecake":        { price: 100 },
+    "Pie in the Sky":             { price: 100 },
+    "Cinnamon Dolce Zeppole":     { price: 100 },
   }},
   "Drinks": { price: "$50 each", note: null, items: {
-    "Limonata":          { price: 50, ingredients: "soda water, ice, sliced lemon, sugar" },
-    "Italian Cola":      { price: 50, ingredients: "soda water, ice, cola syrup, sugar" },
-    "Grape Soda":        { price: 50, ingredients: "soda water, ice, grapes, sugar" },
-    "Peach Iced Tea":    { price: 50, ingredients: "tea, water, ice, peach" },
-    "Hot Tea":           { price: 50, ingredients: "tea, water, milk, sliced lemon" },
-    "Violet's Colani":   { price: 50, ingredients: "ice, coffee, sugar, strawberry" },
-    "Espresso Corretto": { price: 50, ingredients: "coffee, brandy, orange slice" },
-    "Berry Sangria":     { price: 50, ingredients: "ice, prosecco, raspberry" },
+    "Limonata":          { price: 50 },
+    "Italian Cola":      { price: 50 },
+    "Grape Soda":        { price: 50 },
+    "Peach Iced Tea":    { price: 50 },
+    "Hot Tea":           { price: 50 },
+    "Violet's Colani":   { price: 50 },
+    "Espresso Corretto": { price: 50 },
+    "Berry Sangria":     { price: 50 },
   }},
 };
 
 const cart = {};
+let mobileCartOpen = false;
+
+function toggleMobileCart() {
+  mobileCartOpen = !mobileCartOpen;
+  const bar = document.getElementById('mobile-cart-bar');
+  bar.classList.toggle('open', mobileCartOpen);
+  document.getElementById('mobile-chevron').textContent = mobileCartOpen ? '▼' : '▲';
+}
 
 function buildMenu() {
   const col = document.getElementById('menu-col');
@@ -263,7 +376,6 @@ function buildMenu() {
           <span class="item-name">${name}</span>
           <span class="item-price">$${info.price.toLocaleString()}</span>
         </div>
-        <div class="item-ingredients">${info.ingredients}</div>
         <div class="item-qty-controls">
           <button class="qty-btn" data-key="${key}" data-delta="-1">−</button>
           <input class="qty-input" id="qty-${CSS.escape(key)}" type="number" value="1" min="1" />
@@ -284,10 +396,22 @@ function buildMenu() {
   }
 }
 
+function isMobile() { return window.innerWidth <= 768; }
+
+function getField(id) {
+  const suffix = isMobile() ? 'mobile' : 'desktop';
+  return document.getElementById(`${id}-${suffix}`);
+}
+
 function onOrderTypeChange() {
-  const isDelivery = document.getElementById('order-type').value === 'Delivery';
-  document.getElementById('delivery-note').classList.toggle('visible', isDelivery);
-  document.getElementById('address-field').style.display = isDelivery ? 'block' : 'none';
+  ['desktop','mobile'].forEach(s => {
+    const sel = document.getElementById(`order-type-${s}`);
+    if (!sel) return;
+    const isDelivery = sel.value === 'Delivery';
+    document.getElementById(`delivery-note-${s}`)?.classList.toggle('visible', isDelivery);
+    const af = document.getElementById(`address-field-${s}`);
+    if (af) af.style.display = isDelivery ? 'block' : 'none';
+  });
   renderCart();
 }
 
@@ -313,45 +437,79 @@ function setQtyFromInput(key, inputEl) {
 }
 
 function renderCart() {
-  const lines = document.getElementById('cart-lines'), empty = document.getElementById('cart-empty'), totalsEl = document.getElementById('cart-totals');
-  const subEl = document.getElementById('subtotal-price'), totalEl = document.getElementById('total-price'), feeRow = document.getElementById('delivery-fee-row'), countEl = document.getElementById('cart-count');
-  const isDelivery = document.getElementById('order-type').value === 'Delivery';
-  lines.innerHTML = '';
   const entries = Object.values(cart);
-  if (entries.length === 0) { empty.style.display = 'block'; totalsEl.style.display = 'none'; countEl.textContent = '0 items'; return; }
-  empty.style.display = 'none'; totalsEl.style.display = 'block';
+  const isDelivery = (document.getElementById('order-type-desktop')?.value || document.getElementById('order-type-mobile')?.value) === 'Delivery';
   let subtotal = 0, count = 0;
-  for (const item of entries) {
-    const sub = item.price * item.qty; subtotal += sub; count += item.qty;
-    const line = document.createElement('div'); line.className = 'cart-line';
-    const label = item.qty > 1 ? `${item.name} ×${item.qty}` : item.name;
-    line.innerHTML = `<span class="cart-line-name">${label}</span><span class="cart-line-price">$${sub.toLocaleString()}</span>`;
-    lines.appendChild(line);
-  }
+  for (const item of entries) { subtotal += item.price * item.qty; count += item.qty; }
   const total = isDelivery ? subtotal + DELIVERY_FEE : subtotal;
-  subEl.textContent = `$${subtotal.toLocaleString()}`; totalEl.textContent = `$${total.toLocaleString()}`;
-  feeRow.style.display = isDelivery ? 'flex' : 'none';
-  countEl.textContent = `${count} item${count !== 1 ? 's' : ''}`;
+
+  // Update both desktop and mobile
+  ['desktop','mobile'].forEach(s => {
+    const linesEl = document.getElementById(`cart-lines-${s}`);
+    const emptyEl = document.getElementById(`cart-empty-${s}`);
+    const totalsEl = document.getElementById(`cart-totals-${s}`);
+    const subEl = document.getElementById(`subtotal-price-${s}`);
+    const totalEl = document.getElementById(`total-price-${s}`);
+    const feeRow = document.getElementById(`delivery-fee-row-${s}`);
+    const countEl = s === 'desktop' ? document.getElementById('cart-count-desktop') : document.getElementById('mobile-cart-count');
+
+    if (!linesEl) return;
+    linesEl.innerHTML = '';
+    if (entries.length === 0) {
+      if (emptyEl) emptyEl.style.display = 'block';
+      if (totalsEl) totalsEl.style.display = 'none';
+      if (countEl) countEl.textContent = '0 items';
+    } else {
+      if (emptyEl) emptyEl.style.display = 'none';
+      if (totalsEl) totalsEl.style.display = 'block';
+      for (const item of entries) {
+        const sub = item.price * item.qty;
+        const line = document.createElement('div'); line.className = 'cart-line';
+        const label = item.qty > 1 ? `${item.name} ×${item.qty}` : item.name;
+        line.innerHTML = `<span class="cart-line-name">${label}</span><span class="cart-line-price">$${sub.toLocaleString()}</span>`;
+        linesEl.appendChild(line);
+      }
+      if (subEl) subEl.textContent = `$${subtotal.toLocaleString()}`;
+      if (totalEl) totalEl.textContent = `$${total.toLocaleString()}`;
+      if (feeRow) feeRow.style.display = isDelivery ? 'flex' : 'none';
+      if (countEl) countEl.textContent = `${count} item${count !== 1 ? 's' : ''}`;
+    }
+  });
+
+  // Mobile summary bar
+  document.getElementById('mobile-cart-total').textContent = `$${total.toLocaleString()}`;
 }
 
-async function submitOrder() {
-  const customerName = document.getElementById('customer-name').value.trim();
-  const orderType = document.getElementById('order-type').value;
-  const address = document.getElementById('delivery-address').value.trim();
-  const notes = document.getElementById('special-requests').value.trim();
-  const status = document.getElementById('status-msg'), btn = document.getElementById('submit-btn');
+async function submitOrder(src) {
+  const customerName = document.getElementById(`customer-name-${src}`).value.trim();
+  const orderType    = document.getElementById(`order-type-${src}`).value;
+  const address      = document.getElementById(`delivery-address-${src}`)?.value.trim() || '';
+  const notes        = document.getElementById(`special-requests-${src}`).value.trim();
+  const status       = document.getElementById(`status-msg-${src}`);
+  const btn          = document.getElementById(`submit-btn-${src}`);
+
   status.className = 'status-msg'; status.style.display = 'none';
   if (!customerName) { status.textContent = 'Please enter your character name.'; status.className = 'status-msg error'; return; }
   const items = Object.values(cart);
   if (items.length === 0) { status.textContent = 'Your order is empty — add some items first!'; status.className = 'status-msg error'; return; }
   if (orderType === 'Delivery' && !address) { status.textContent = 'Please enter a delivery address.'; status.className = 'status-msg error'; return; }
+
   btn.disabled = true; btn.textContent = 'Sending…';
   try {
-    const res = await fetch('/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ customerName, orderType, address, notes, items }) });
+    const res  = await fetch('/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ customerName, orderType, address, notes, items }) });
     const data = await res.json();
-    if (res.ok && data.success) { showConfirmation({ customerName, orderType, address, notes, items, total: data.total, isDelivery: data.isDelivery }); }
-    else { status.textContent = data.error || 'Something went wrong. Please try again.'; status.className = 'status-msg error'; btn.disabled = false; btn.textContent = 'Place Order'; }
-  } catch (err) { status.textContent = 'Could not reach the server.'; status.className = 'status-msg error'; btn.disabled = false; btn.textContent = 'Place Order'; }
+    if (res.ok && data.success) {
+      showConfirmation({ customerName, orderType, address, notes, items, total: data.total, isDelivery: data.isDelivery });
+    } else {
+      status.textContent = data.error || 'Something went wrong. Please try again.';
+      status.className = 'status-msg error';
+      btn.disabled = false; btn.textContent = 'Place Order';
+    }
+  } catch (err) {
+    status.textContent = 'Could not reach the server.';
+    status.className = 'status-msg error';
+    btn.disabled = false; btn.textContent = 'Place Order';
+  }
 }
 
 function showConfirmation({ customerName, orderType, address, notes, items, total, isDelivery }) {
@@ -361,21 +519,36 @@ function showConfirmation({ customerName, orderType, address, notes, items, tota
   if (address) { document.getElementById('conf-address').textContent = address; addrRow.style.display = 'flex'; } else addrRow.style.display = 'none';
   const notesRow = document.getElementById('conf-notes-row');
   if (notes) { document.getElementById('conf-notes').textContent = notes; notesRow.style.display = 'flex'; } else notesRow.style.display = 'none';
-  document.getElementById('conf-items').innerHTML = items.map(i => { const sub = i.price * i.qty; const label = i.qty > 1 ? `${i.name} ×${i.qty}` : i.name; return `<div class="confirm-item-line"><span class="confirm-item-name">${label}</span><span class="confirm-item-price">$${sub.toLocaleString()}</span></div>`; }).join('');
+  document.getElementById('conf-items').innerHTML = items.map(i => {
+    const sub = i.price * i.qty; const label = i.qty > 1 ? `${i.name} ×${i.qty}` : i.name;
+    return `<div class="confirm-item-line"><span class="confirm-item-name">${label}</span><span class="confirm-item-price">$${sub.toLocaleString()}</span></div>`;
+  }).join('');
   document.getElementById('conf-delivery-fee-row').style.display = isDelivery ? 'flex' : 'none';
   document.getElementById('conf-total').textContent = `$${total.toLocaleString()}`;
   document.getElementById('order-screen').classList.add('hidden');
+  document.getElementById('mobile-cart-bar').style.display = 'none';
   document.getElementById('confirmation-screen').classList.add('visible');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function resetOrder() {
-  for (const key of Object.keys(cart)) { document.getElementById(`item-${CSS.escape(key)}`)?.classList.remove('selected'); const qi = document.getElementById(`qty-${CSS.escape(key)}`); if (qi) qi.value = 1; delete cart[key]; }
+  for (const key of Object.keys(cart)) {
+    document.getElementById(`item-${CSS.escape(key)}`)?.classList.remove('selected');
+    const qi = document.getElementById(`qty-${CSS.escape(key)}`); if (qi) qi.value = 1;
+    delete cart[key];
+  }
   renderCart();
-  document.getElementById('customer-name').value = ''; document.getElementById('special-requests').value = ''; document.getElementById('delivery-address').value = ''; document.getElementById('order-type').value = 'Pickup';
-  document.getElementById('submit-btn').disabled = false; document.getElementById('submit-btn').textContent = 'Place Order';
+  ['desktop','mobile'].forEach(s => {
+    const cn = document.getElementById(`customer-name-${s}`); if (cn) cn.value = '';
+    const sr = document.getElementById(`special-requests-${s}`); if (sr) sr.value = '';
+    const da = document.getElementById(`delivery-address-${s}`); if (da) da.value = '';
+    const ot = document.getElementById(`order-type-${s}`); if (ot) ot.value = 'Pickup';
+    const sb = document.getElementById(`submit-btn-${s}`); if (sb) { sb.disabled = false; sb.textContent = 'Place Order'; }
+  });
   onOrderTypeChange();
-  document.getElementById('confirmation-screen').classList.remove('visible'); document.getElementById('order-screen').classList.remove('hidden');
+  document.getElementById('mobile-cart-bar').style.display = 'block';
+  document.getElementById('confirmation-screen').classList.remove('visible');
+  document.getElementById('order-screen').classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
